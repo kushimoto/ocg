@@ -25,9 +25,10 @@ for a in alphabets:
 
     # ファイルが存在するか確認
     if os.path.isfile(img_name):
-        img = cv2.imread(a + '.png', 0)
+        img = cv2.imread(a + '.png', -1)
     else:
         sys.exit(1)
+
 
     # 座標４点をリセット
     #
@@ -50,7 +51,7 @@ for a in alphabets:
     for i in range(3):
 
         # よくわからん
-        rows,cols=img.shape
+        rows,cols,_=img.shape
 
         # どの点をいじるかランダムで決定
         point = random.randrange(4)
@@ -104,14 +105,19 @@ for a in alphabets:
     # 色反転 (文字が白で背景黒いから文字が黒で背景を白にする)
     img = cv2.bitwise_not(img)
 
+    # 白を透明にする
+    img[:, :, 3] = np.where(np.all(img == 0, axis=-1), 255, 0)
+
     # 保存 (大文字小文字を判断しているだけ)
     if a.islower():
         if os.path.isdir('./lowercase'):
             cv2.imwrite('./lowercase/' + a + '.png', img)
+            print("[DONE] ./lowercase/" + a + ".png")
         else:
             os.mkdir('./lowercase')
     elif a.isupper():
         if os.path.isdir('./uppercase'):
             cv2.imwrite('./uppercase/' + a + '.png', img)
+            print("[DONE] ./uppercase/" + a + ".png")
         else:
             os.mkdir('./uppercase')
