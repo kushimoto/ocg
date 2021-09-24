@@ -15,7 +15,10 @@ alphabets = ['a', 'b', 'c', 'd',
              'K', 'L', 'M', 'N',
              'O', 'P', 'Q', 'R',
              'S', 'T', 'U', 'V',
-             'W', 'X', 'Y', 'Z'
+             'W', 'X', 'Y', 'Z',
+             '0', '1', '2', '3',
+             '4', '5', '6', '7',
+             '8', '9'
             ]
 
 for a in alphabets:
@@ -121,3 +124,7 @@ for a in alphabets:
             print("[DONE] ./uppercase/" + a + ".png")
         else:
             os.mkdir('./uppercase')
+    elif a.isdigit():
+        if os.path.isdir('./digit'):
+            cv2.imwrite('./digit/' + a + '.png', img)
+            print("[DONE] ./digit/" + a + ".png")
