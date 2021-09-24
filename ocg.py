@@ -3,7 +3,7 @@ import numpy as np
 import random
 import os
 
-alphabets = ['a', 'b', 'c', 'd',
+charcters = ['a', 'b', 'c', 'd',
              'e', 'f', 'g', 'h',
              'i', 'j', 'k', 'l',
              'm', 'n', 'o', 'p',
@@ -21,14 +21,14 @@ alphabets = ['a', 'b', 'c', 'd',
              '8', '9'
             ]
 
-for a in alphabets:
+for c in charcters:
 
     # ファイル名をセット
-    img_name = './' + a + '.png'
+    img_name = './' + c + '.png'
 
     # ファイルが存在するか確認
     if os.path.isfile(img_name):
-        img = cv2.imread(a + '.png', -1)
+        img = cv2.imread(c + '.png', -1)
     else:
         sys.exit(1)
 
@@ -112,19 +112,21 @@ for a in alphabets:
     img[:, :, 3] = np.where(np.all(img == 0, axis=-1), 255, 0)
 
     # 保存 (大文字小文字を判断しているだけ)
-    if a.islower():
+    if c.islower():
         if os.path.isdir('./lowercase'):
-            cv2.imwrite('./lowercase/' + a + '.png', img)
-            print("[DONE] ./lowercase/" + a + ".png")
+            cv2.imwrite('./lowercase/' + c + '.png', img)
+            print("[DONE] ./lowercase/" + c + ".png")
         else:
             os.mkdir('./lowercase')
-    elif a.isupper():
+    elif c.isupper():
         if os.path.isdir('./uppercase'):
-            cv2.imwrite('./uppercase/' + a + '.png', img)
-            print("[DONE] ./uppercase/" + a + ".png")
+            cv2.imwrite('./uppercase/' + c + '.png', img)
+            print("[DONE] ./uppercase/" + c + ".png")
         else:
             os.mkdir('./uppercase')
-    elif a.isdigit():
+    elif c.isdigit():
         if os.path.isdir('./digit'):
-            cv2.imwrite('./digit/' + a + '.png', img)
-            print("[DONE] ./digit/" + a + ".png")
+            cv2.imwrite('./digit/' + c + '.png', img)
+            print("[DONE] ./digit/" + c + ".png")
+        else:
+            os.mkdir('./uppercase')
